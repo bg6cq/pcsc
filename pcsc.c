@@ -611,6 +611,7 @@ PHP_FUNCTION(scard_connect)
   rc = SCardConnect(context, strReaderName, SCARD_SHARE_SHARED, dwPreferredProtocol, &hCard, &dwCurrentProtocol);
   if (rc != SCARD_S_SUCCESS) {
 	PCSC_G(last_errno)=rc;
+	zval_ptr_dtor(&current_protocol);
     RETURN_FALSE;
   }
   ZVAL_LONG(current_protocol,dwCurrentProtocol);
